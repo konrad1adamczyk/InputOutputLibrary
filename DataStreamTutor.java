@@ -1,8 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,6 +9,7 @@ public class DataStreamTutor extends Tutor {
     private static final String FILES_TEST_PATH = "files/test.txt";
     private static final String TEST_LINE = "test line";
 
+    File f = new File(FILES_TEST_PATH);
     /**
      * Writes a string TEST_LINE to the file FILES_TEST_PATH, using
      * method writeUTF of class DataOutputStream.
@@ -17,6 +17,15 @@ public class DataStreamTutor extends Tutor {
      * Then close the stream.
      */
     public void writeToFile() {
+
+
+        try (BufferedOutputStream br = new BufferedOutputStream(new DataOutputStream(new FileOutputStream(f)))) {
+            br.write(TEST_LINE.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -24,6 +33,14 @@ public class DataStreamTutor extends Tutor {
      * @return
      */
     public String readFromFile() {
+        try (DataInputStream dis = new DataInputStream(new FileInputStream(f))) {
+            String s= dis.readLine();
+            return s;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

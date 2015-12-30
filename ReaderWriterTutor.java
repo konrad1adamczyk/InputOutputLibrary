@@ -1,14 +1,14 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 import static org.junit.Assert.assertEquals;
 
 public class ReaderWriterTutor {
     private static final String FILES_TEST_PATH = "files/test.txt";
     private static final String TEST_LINE = "test line";
+    File f = new File(FILES_TEST_PATH);
 
     /**
      * Write line TEST_LINE to the file FILES_TEST_PATH, using
@@ -16,6 +16,11 @@ public class ReaderWriterTutor {
      * Then close the stream.
      */
     public void writeToFile() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(f))) {
+            bw.write(TEST_LINE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -24,6 +29,13 @@ public class ReaderWriterTutor {
      * @return
      */
     public String readFromFile() {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(f))) {
+            String spr = bufferedReader.readLine();
+            return spr;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
