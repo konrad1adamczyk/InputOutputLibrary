@@ -12,7 +12,7 @@ public class FormatNumberTutor {
      * (2 decimal places, separated by the dot)
      */
     public String fomatNumber(double n) {
-        return null;
+        return String.format("%1.2f",n);
     }
 
     public void formatNumber() {
